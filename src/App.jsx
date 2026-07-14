@@ -18,6 +18,7 @@ export default function App() {
 
     if (existingProduct) {
       // Increase existing stock by the new quantity provided
+      // have to use react provided setProducts to manage state
       setProducts(products.map((p) =>
         p.id === existingProduct.id
           ? { ...p, quantity: p.quantity + newProduct.quantity }

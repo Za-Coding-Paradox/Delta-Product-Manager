@@ -71,7 +71,7 @@ export default function ProductForm({ onAddProduct }) {
             <label>Price per unit ($)</label>
             <input 
               type="number" 
-              step="0.01" 
+              step="0.05" 
               value={price} 
               onChange={(e) => setPrice(e.target.value)} 
               placeholder="0.00"
