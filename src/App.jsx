@@ -103,6 +103,15 @@ export default function App() {
       <main className="grid-layout">
         <div className="left-panel">
           <ProductForm onAddProduct={handleAddProduct} />
+        </div>
+        
+        <div className="right-panel">
+          <Cart 
+            cart={cart} 
+            onUpdateQuantity={updateCartQuantity} 
+            onClearCart={clearCart} 
+          />
+          
           {/* We now pass 'cart' down so products know if they are maxed out */}
           <ProductList 
             products={products} 
@@ -110,13 +119,6 @@ export default function App() {
             onAddToCart={handleAddToCart} 
             onDeleteProduct={handleDeleteProduct} 
             onUpdateProductQuantity={handleUpdateProductQuantity}
-          />
-        </div>
-        <div className="right-panel">
-          <Cart 
-            cart={cart} 
-            onUpdateQuantity={updateCartQuantity} 
-            onClearCart={clearCart} 
           />
         </div>
       </main>

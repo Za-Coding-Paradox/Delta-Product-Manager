@@ -1,164 +1,695 @@
-/* --- CSS VARIABLES & RESET --- */
+/* ============================================================
+   MATERIAL DESIGN 3 — STORE MANAGER
+   Vanilla CSS · MD3 Baseline Purple Scheme
+   ============================================================ */
+
+/* ── 1. MD3 COLOR ROLES (Light Scheme) ─────────────────────── */
 :root {
-  --bg-color: #f8fafc;
-  --card-bg: #ffffff;
-  --text-main: #334155;
-  --text-muted: #64748b;
-  --text-heading: #0f172a;
-  --border: #e2e8f0;
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --danger: #ef4444;
-  --danger-hover: #dc2626;
-  --danger-text: #fca5a5;
-  --radius: 12px;
-  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  /* Primary */
+  --md-primary:              #6750A4;
+  --md-on-primary:           #FFFFFF;
+  --md-primary-container:    #EADDFF;
+  --md-on-primary-container: #21005D;
+
+  /* Secondary */
+  --md-secondary:              #625B71;
+  --md-on-secondary:           #FFFFFF;
+  --md-secondary-container:    #E8DEF8;
+  --md-on-secondary-container: #1D192B;
+
+  /* Tertiary */
+  --md-tertiary:              #7D5260;
+  --md-on-tertiary:           #FFFFFF;
+  --md-tertiary-container:    #FFD8E4;
+  --md-on-tertiary-container: #31111D;
+
+  /* Error */
+  --md-error:              #B3261E;
+  --md-on-error:           #FFFFFF;
+  --md-error-container:    #F9DEDC;
+  --md-on-error-container: #410E0B;
+
+  /* Surface & Background */
+  --md-background:         #FFFBFE;
+  --md-on-background:      #1C1B1F;
+  --md-surface:            #FFFBFE;
+  --md-on-surface:         #1C1B1F;
+  --md-surface-variant:    #E7E0EC;
+  --md-on-surface-variant: #49454F;
+
+  /* Surface tints (primary color overlaid at different opacities) */
+  --md-surface-1: color-mix(in srgb, var(--md-primary) 5%,  var(--md-surface));
+  --md-surface-2: color-mix(in srgb, var(--md-primary) 8%,  var(--md-surface));
+  --md-surface-3: color-mix(in srgb, var(--md-primary) 11%, var(--md-surface));
+  --md-surface-4: color-mix(in srgb, var(--md-primary) 12%, var(--md-surface));
+  --md-surface-5: color-mix(in srgb, var(--md-primary) 14%, var(--md-surface));
+
+  /* Outline */
+  --md-outline:         #79747E;
+  --md-outline-variant: #CAC4D0;
+
+  /* ── 2. SHAPE TOKENS (MD3 Shape Scale) ── */
+  --shape-xs:   4px;   /* text fields, chips, small elements */
+  --shape-sm:   8px;   /* steppers, small cards */
+  --shape-md:   12px;  /* cards */
+  --shape-lg:   16px;  /* large surfaces */
+  --shape-xl:   28px;  /* dialogs, prominent surfaces */
+  --shape-full: 9999px; /* pills, buttons */
+
+  /* ── 3. ELEVATION SHADOWS ── */
+  --elev-0: none;
+  --elev-1: 0px 1px 2px rgba(0,0,0,0.3), 0px 1px 3px 1px rgba(0,0,0,0.15);
+  --elev-2: 0px 1px 2px rgba(0,0,0,0.3), 0px 2px 6px 2px rgba(0,0,0,0.15);
+  --elev-3: 0px 4px 8px 3px rgba(0,0,0,0.15), 0px 1px 3px rgba(0,0,0,0.3);
+
+  /* ── 4. MOTION ── */
+  --motion-duration-short:   150ms;
+  --motion-duration-medium:  250ms;
+  --motion-easing-standard:  cubic-bezier(0.2, 0, 0, 1);
+  --motion-easing-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+
+  /* ── 5. TYPOGRAPHY (MD3 Type Scale) ── */
+  --typescale-display-large:    3.5625rem;
+  --typescale-headline-large:   2rem;
+  --typescale-headline-medium:  1.75rem;
+  --typescale-title-large:      1.375rem;
+  --typescale-title-medium:     1rem;
+  --typescale-body-large:       1rem;
+  --typescale-body-medium:      0.875rem;
+  --typescale-label-large:      0.875rem;
+  --typescale-label-medium:     0.75rem;
+  --typescale-label-small:      0.6875rem;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── 6. RESET ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-body { 
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
-  background-color: var(--bg-color); 
-  color: var(--text-main); 
-  line-height: 1.6; 
+/* ── 7. BASE ─────────────────────────────────────────────────── */
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--md-background);
+  color: var(--md-on-background);
+  font-size: var(--typescale-body-large);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- TYPOGRAPHY & LAYOUT --- */
-.app-container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+/* ── 8. APP SHELL ────────────────────────────────────────────── */
+.app-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+}
 
-.app-header { margin-bottom: 40px; }
-.app-header h1 { font-size: 2.2rem; color: var(--text-heading); font-weight: 700; margin-bottom: 4px;}
-.app-header p { color: var(--text-muted); font-size: 1.1rem; }
+/* ── 9. TOP APP BAR (header) ─────────────────────────────────── */
+.app-header {
+  background: var(--md-surface-2);
+  margin: 0 -24px 40px;
+  padding: 20px 40px 24px;
+  border-bottom: 1px solid var(--md-outline-variant);
+  position: relative;
+}
 
-h2 { font-size: 1.25rem; color: var(--text-heading); margin-bottom: 20px; font-weight: 600; }
+.app-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--md-primary) 18%, transparent) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
 
-.grid-layout { display: grid; grid-template-columns: 1fr; gap: 32px; }
+.app-header h1 {
+  font-size: var(--typescale-headline-large);
+  font-weight: 400;
+  color: var(--md-on-surface);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  position: relative;
+}
+
+.app-header p {
+  color: var(--md-on-surface-variant);
+  font-size: var(--typescale-body-large);
+  margin-top: 4px;
+  letter-spacing: 0.015em;
+  position: relative;
+}
+
+/* Section heading — Title Large */
+h2 {
+  font-size: var(--typescale-title-large);
+  font-weight: 500;
+  color: var(--md-on-surface);
+  margin-bottom: 20px;
+  letter-spacing: 0.0125em;
+}
+
+/* ── 10. GRID LAYOUT ─────────────────────────────────────────── */
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
 @media (min-width: 800px) {
-  .grid-layout { grid-template-columns: 1.2fr 1fr; align-items: start; }
+  .grid-layout {
+    grid-template-columns: 1.25fr 1fr;
+    gap: 32px;
+  }
 }
 
-/* --- COMPONENTS --- */
-.card { 
-  background: var(--card-bg); 
-  border-radius: var(--radius); 
-  padding: 28px; 
-  box-shadow: var(--shadow); 
-  border: 1px solid var(--border);
-  margin-bottom: 32px;
+/* ── 11. MD3 CARD ────────────────────────────────────────────── */
+/*
+  MD3 Elevated Card:
+  Surface Level 1 background + elev-1 shadow.
+  On hover, lifts to Level 2 (state layer + elev-2).
+*/
+.card {
+  background: var(--md-surface-1);
+  border-radius: var(--shape-md);
+  padding: 24px;
+  box-shadow: var(--elev-1);
+  margin-bottom: 24px;
+  transition:
+    box-shadow var(--motion-duration-medium) var(--motion-easing-standard);
+  position: relative;
+  overflow: hidden;
 }
 
+.card::before {
+  /* MD3 state layer */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--md-primary);
+  opacity: 0;
+  transition: opacity var(--motion-duration-short) var(--motion-easing-standard);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ── 12. EMPTY STATE ─────────────────────────────────────────── */
 .empty-state {
   text-align: center;
-  padding: 40px 20px;
-  background: #f1f5f9;
-  border-radius: var(--radius);
-  color: var(--text-muted);
-  border: 1px dashed #cbd5e1;
+  padding: 48px 24px;
+  background: var(--md-surface-variant);
+  border-radius: var(--shape-md);
+  color: var(--md-on-surface-variant);
 }
 
-/* --- FORMS --- */
-.form-layout { display: flex; flex-direction: column; gap: 20px; }
-.form-group label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; color: var(--text-heading); }
-.form-group input, .form-group textarea { 
-  width: 100%; 
-  padding: 12px 14px; 
-  border: 1px solid var(--border); 
-  border-radius: 8px; 
-  font-family: inherit; 
-  font-size: 0.95rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.form-group input:focus, .form-group textarea:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-}
-.error-message { 
-  background-color: #fef2f2; 
-  color: #991b1b; 
-  padding: 12px 16px; 
-  border-radius: 8px; 
-  margin-bottom: 24px; 
-  font-size: 0.9rem; 
-  border: 1px solid #fecaca;
+.empty-state p {
+  font-size: var(--typescale-body-large);
+  line-height: 1.6;
 }
 
-/* --- BUTTONS --- */
-.btn { 
-  padding: 10px 16px; 
-  border: none; 
-  border-radius: 8px; 
-  cursor: pointer; 
-  font-weight: 500; 
-  font-size: 0.95rem; 
-  transition: all 0.2s; 
-}
-.btn-primary { background: var(--primary); color: white; }
-.btn-primary:hover { background: var(--primary-hover); }
-.btn-secondary { background: #f1f5f9; color: var(--text-heading); }
-.btn-secondary:hover { background: #e2e8f0; }
-.btn-danger { background: var(--danger); color: white; }
-.btn-danger:hover { background: var(--danger-hover); }
-.btn-text-danger { background: transparent; color: var(--text-muted); padding: 10px; }
-.btn-text-danger:hover { color: var(--danger); background: #fef2f2; }
-.full-width { width: 100%; margin-top: 16px; padding: 14px; }
-
-/* --- PRODUCT LIST --- */
-.products-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-.product-card { margin-bottom: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 20px; padding: 24px; }
-.product-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
-.product-header h3 { margin: 0; font-size: 1.1rem; color: var(--text-heading); line-height: 1.3;}
-.product-header .price { font-weight: 600; color: var(--primary); font-size: 1.1rem; }
-.description { color: var(--text-muted); font-size: 0.95rem; margin: 0; }
-.product-actions { display: flex; gap: 12px; }
-.product-actions button:first-child { flex: 1; }
-
-/* --- CART --- */
-.cart-card { position: sticky; top: 40px; }
-.cart-item { display: flex; flex-direction: column; padding: 16px 0; border-bottom: 1px solid var(--border); gap: 12px;}
-.cart-item:last-of-type { border-bottom: none; }
-.cart-item-info strong { color: var(--text-heading); display: block; font-size: 1rem; margin-bottom: 4px;}
-.cart-item-price { color: var(--text-muted); font-size: 0.85rem; }
-.cart-item-controls { display: flex; justify-content: space-between; align-items: center; }
-
-.stepper { display: flex; align-items: center; gap: 12px; background: #f1f5f9; border-radius: 8px; padding: 4px; }
-.stepper button { 
-  background: #ffffff; border: 1px solid var(--border); width: 28px; height: 28px; 
-  border-radius: 6px; cursor: pointer; color: var(--text-heading); display: flex; 
-  align-items: center; justify-content: center; transition: background 0.2s;
-}
-.stepper button:hover { background: #f8fafc; border-color: #cbd5e1; }
-.stepper span { font-weight: 500; font-size: 0.95rem; min-width: 16px; text-align: center; }
-
-.line-total { font-weight: 600; color: var(--text-heading); }
-.cart-summary { margin-top: 16px; padding-top: 24px; border-top: 2px dashed var(--border); }
-.grand-total { display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 700; color: var(--text-heading); }
-
-/* --- INVENTORY STOCK CONTROLS --- */
-.inventory-controls {
+/* ── 13. FORMS — MD3 Outlined Text Field ─────────────────────── */
+.form-layout {
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: var(--typescale-label-large);
+  letter-spacing: 0.01em;
+  color: var(--md-on-surface-variant);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 16px 16px;
+  background: transparent;
+  border: 1px solid var(--md-outline);
+  border-radius: var(--shape-xs);
+  font-family: inherit;
+  font-size: var(--typescale-body-large);
+  color: var(--md-on-surface);
+  caret-color: var(--md-primary);
+  transition:
+    border-color var(--motion-duration-short) var(--motion-easing-standard),
+    box-shadow   var(--motion-duration-short) var(--motion-easing-standard);
+  outline: none;
+  resize: vertical;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--md-on-surface-variant);
+  opacity: 0.6;
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+  border-color: var(--md-on-surface);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--md-primary);
+  border-width: 2px;
+  padding: 15px 15px; /* compensate for border width increase */
+}
+
+/* Form row (price + qty side-by-side) */
+.form-group input[type="number"] {
+  -moz-appearance: textfield;
+}
+.form-group input[type="number"]::-webkit-inner-spin-button,
+.form-group input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Error state on fields */
+.error-field {
+  border-color: var(--md-error) !important;
+  border-width: 2px !important;
+  padding: 15px 15px !important;
+}
+
+/* Error banner */
+.error-message {
+  background-color: var(--md-error-container);
+  color: var(--md-on-error-container);
+  padding: 12px 16px;
+  border-radius: var(--shape-xs);
+  margin-bottom: 20px;
+  font-size: var(--typescale-body-medium);
+  letter-spacing: 0.01em;
+  border-left: 4px solid var(--md-error);
+}
+
+/* Inline field error text */
+.field-error {
+  font-size: var(--typescale-label-medium);
+  color: var(--md-error);
+  margin-top: 4px;
+  letter-spacing: 0.03em;
+}
+
+.required-star {
+  color: var(--md-error);
+}
+
+/* Generic form body (Form.jsx) */
+.form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  font-size: var(--typescale-label-large);
+  font-weight: 500;
+  color: var(--md-on-surface-variant);
+  letter-spacing: 0.01em;
+}
+
+.field-group input,
+.field-group textarea {
+  width: 100%;
+  padding: 16px;
+  background: transparent;
+  border: 1px solid var(--md-outline);
+  border-radius: var(--shape-xs);
+  font-family: inherit;
+  font-size: var(--typescale-body-large);
+  color: var(--md-on-surface);
+  caret-color: var(--md-primary);
+  outline: none;
+  resize: vertical;
+  transition: border-color var(--motion-duration-short) var(--motion-easing-standard);
+}
+
+.field-group input:focus,
+.field-group textarea:focus {
+  border-color: var(--md-primary);
+  border-width: 2px;
+  padding: 15px;
+}
+
+/* ── 14. BUTTONS — MD3 Hierarchy ─────────────────────────────── */
+/*
+  Filled      → highest emphasis  (primary bg)
+  Tonal       → medium emphasis   (secondary-container bg)
+  Text/Ghost  → lowest emphasis   (transparent)
+  Filled Error → destructive primary
+*/
+
+.btn {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  height: 40px;
+  border: none;
+  border-radius: var(--shape-full);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--typescale-label-large);
+  font-weight: 500;
+  letter-spacing: 0.00625em;
+  transition:
+    background-color var(--motion-duration-short) var(--motion-easing-standard),
+    box-shadow       var(--motion-duration-short) var(--motion-easing-standard),
+    color            var(--motion-duration-short) var(--motion-easing-standard);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+/* State layer for all buttons */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--motion-duration-short) var(--motion-easing-standard);
+  border-radius: inherit;
+}
+
+.btn:hover::after  { opacity: 0.08; }
+.btn:focus-visible { outline: 3px solid var(--md-primary); outline-offset: 2px; }
+.btn:active::after { opacity: 0.12; }
+
+/* Filled — Primary */
+.btn-primary {
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  box-shadow: var(--elev-0);
+}
+.btn-primary:hover { box-shadow: var(--elev-1); }
+
+/* Tonal — Secondary Container (replaces btn-secondary) */
+.btn-secondary {
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  box-shadow: var(--elev-0);
+}
+.btn-secondary:hover { box-shadow: var(--elev-1); }
+
+/* Filled Error — Destructive primary */
+.btn-danger {
+  background: var(--md-error);
+  color: var(--md-on-error);
+  box-shadow: var(--elev-0);
+}
+.btn-danger:hover { box-shadow: var(--elev-1); }
+
+/* Text — Destructive ghost */
+.btn-text-danger {
+  background: transparent;
+  color: var(--md-error);
+  padding: 10px 12px;
+  box-shadow: none;
+}
+
+/* Full-width variant */
+.full-width {
+  width: 100%;
+  height: 44px;
+  font-size: var(--typescale-body-large);
+  margin-top: 20px;
+  border-radius: var(--shape-sm);
+}
+
+/* Disabled state — MD3 spec: 38% opacity on content, no elevation */
+.btn:disabled,
+.btn:disabled:hover {
+  background: color-mix(in srgb, var(--md-on-surface) 12%, transparent);
+  color: color-mix(in srgb, var(--md-on-surface) 38%, transparent);
+  box-shadow: none;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Generic form submit button (Form.jsx) */
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  height: 40px;
+  border: none;
+  border-radius: var(--shape-full);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--typescale-label-large);
+  font-weight: 500;
+  letter-spacing: 0.00625em;
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  transition:
+    background-color var(--motion-duration-short) var(--motion-easing-standard),
+    box-shadow       var(--motion-duration-short) var(--motion-easing-standard);
+}
+.btn-submit:hover { box-shadow: var(--elev-1); }
+
+/* ── 15. PRODUCT LIST ─────────────────────────────────────────── */
+
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Product Card */
+.product-card {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 12px;
-  margin-top: 16px;
-  background: #f8fafc;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  width: max-content;
+}
+
+.product-header h3 {
+  font-size: var(--typescale-title-medium);
+  font-weight: 500;
+  color: var(--md-on-surface);
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+/* Price — displayed as MD3 "Label Large" in primary color */
+.product-header .price {
+  font-size: var(--typescale-title-medium);
+  font-weight: 600;
+  color: var(--md-primary);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.description {
+  color: var(--md-on-surface-variant);
+  font-size: var(--typescale-body-medium);
+  line-height: 1.55;
+  margin: 0;
+  letter-spacing: 0.015em;
+}
+
+/* ── 16. INVENTORY STOCK CONTROLS ────────────────────────────── */
+.inventory-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--md-surface-variant);
+  border-radius: var(--shape-full);
+  padding: 6px 14px 6px 12px;
 }
 
 .stock-label {
-  font-size: 0.9rem;
-  color: var(--text-muted);
+  font-size: var(--typescale-label-medium);
+  color: var(--md-on-surface-variant);
   font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-/* --- DISABLED STATE FOR BUTTONS --- */
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: #e2e8f0;
-  color: var(--text-muted);
+/* ── 17. STEPPER — MD3 Chip-style ────────────────────────────── */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stepper button {
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline-variant);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--md-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  line-height: 1;
+  transition:
+    background-color var(--motion-duration-short) var(--motion-easing-standard),
+    border-color     var(--motion-duration-short) var(--motion-easing-standard);
+}
+
+.stepper button:hover {
+  background: var(--md-primary-container);
+  border-color: var(--md-primary);
+}
+
+.stepper button:focus-visible {
+  outline: 2px solid var(--md-primary);
+  outline-offset: 2px;
+}
+
+.stepper span {
+  font-weight: 500;
+  font-size: var(--typescale-body-large);
+  min-width: 28px;
+  text-align: center;
+  color: var(--md-on-surface);
+}
+
+/* ── 18. PRODUCT ACTIONS ─────────────────────────────────────── */
+.product-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.product-actions button:first-child {
+  flex: 1;
+}
+
+/* ── 19. CART (sticky sidebar) ───────────────────────────────── */
+.cart-card {
+  position: sticky;
+  top: 24px;
+  margin-bottom: 0;
+}
+
+.cart-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* CartItem */
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  gap: 12px;
+  border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.cart-item:last-of-type {
+  border-bottom: none;
+}
+
+.cart-item-info strong {
+  display: block;
+  font-size: var(--typescale-title-medium);
+  font-weight: 500;
+  color: var(--md-on-surface);
+  margin-bottom: 2px;
+  letter-spacing: 0.01em;
+}
+
+.cart-item-price {
+  color: var(--md-on-surface-variant);
+  font-size: var(--typescale-body-medium);
+  letter-spacing: 0.01em;
+}
+
+.cart-item-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.line-total {
+  font-size: var(--typescale-title-medium);
+  font-weight: 600;
+  color: var(--md-on-surface);
+  letter-spacing: 0.01em;
+}
+
+/* ── 20. CART SUMMARY ────────────────────────────────────────── */
+.cart-summary {
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 2px solid var(--md-primary-container);
+}
+
+.grand-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--typescale-title-large);
+  font-weight: 600;
+  color: var(--md-on-surface);
+  letter-spacing: 0.0125em;
+}
+
+/* ── 21. RESPONSIVE ADJUSTMENTS ──────────────────────────────── */
+@media (min-width: 640px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 800px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-header {
+    padding: 24px 40px 28px;
+  }
+}
+
+/* ── 22. REDUCED MOTION ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration:  0.01ms !important;
+  }
 }
