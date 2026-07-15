@@ -1,6 +1,8 @@
 import React from 'react';
+import { useStore } from '../context/StoreContext';
 
-export default function CartItem({ item, onUpdateQuantity }) {
+export default function CartItem({ item }) {
+  const { dispatch } = useStore();
   const lineTotal = item.price * item.quantity;
 
   return (
@@ -9,16 +11,20 @@ export default function CartItem({ item, onUpdateQuantity }) {
         <strong>{item.title}</strong>
         <span className="cart-item-price">${item.price.toFixed(2)} each</span>
       </div>
-      
+
       <div className="cart-item-controls">
         <div className="stepper">
-          <button onClick={() => onUpdateQuantity(item.id, -1)} aria-label="Decrease quantity">−</button>
+          <button
+            onClick={() => dispatch({ type: 'UPDATE_CART_QUANTITY', payload: { id: item.id, delta: -1 } })}
+            aria-label="Decrease quantity"
+          >−</button>
           <span>{item.quantity}</span>
-          <button onClick={() => onUpdateQuantity(item.id, 1)} aria-label="Increase quantity">+</button>
+          <button
+            onClick={() => dispatch({ type: 'UPDATE_CART_QUANTITY', payload: { id: item.id, delta: 1 } })}
+            aria-label="Increase quantity"
+          >+</button>
         </div>
-        <div className="line-total">
-          ${lineTotal.toFixed(2)}
-        </div>
+        <div className="line-total">${lineTotal.toFixed(2)}</div>
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 import React from 'react';
+import { useStore } from '../context/StoreContext';
 
-export default function ProductCard({ product, cart, onAddToCart, onDeleteProduct, onUpdateProductQuantity }) {
-  // Check how many are currently in the basket
-  const cartItem = cart.find(item => item.id === product.id);
-  const cartQty = cartItem ? cartItem.quantity : 0;
+export default function ProductCard({ product }) {
+  const { state: { cart }, dispatch } = useStore();
+
+  const cartQty = cart.find(item => item.id === product.id)?.quantity ?? 0;
   const isMaxedOut = cartQty >= product.quantity;
 
   return (
@@ -14,26 +15,35 @@ export default function ProductCard({ product, cart, onAddToCart, onDeleteProduc
           <span className="price">${product.price.toFixed(2)}</span>
         </div>
         {product.description && <p className="description">{product.description}</p>}
-        
+
         <div className="inventory-controls">
           <span className="stock-label">Stock:</span>
           <div className="stepper">
-            <button onClick={() => onUpdateProductQuantity(product.id, -1)} aria-label="Decrease stock">−</button>
+            <button
+              onClick={() => dispatch({ type: 'UPDATE_PRODUCT_QUANTITY', payload: { id: product.id, delta: -1 } })}
+              aria-label="Decrease stock"
+            >−</button>
             <span>{product.quantity}</span>
-            <button onClick={() => onUpdateProductQuantity(product.id, 1)} aria-label="Increase stock">+</button>
+            <button
+              onClick={() => dispatch({ type: 'UPDATE_PRODUCT_QUANTITY', payload: { id: product.id, delta: 1 } })}
+              aria-label="Increase stock"
+            >+</button>
           </div>
         </div>
       </div>
-      
+
       <div className="product-actions">
-        <button 
-          onClick={() => onAddToCart(product)} 
+        <button
+          onClick={() => dispatch({ type: 'ADD_TO_CART', payload: product })}
           className="btn btn-secondary"
           disabled={isMaxedOut}
         >
-          {isMaxedOut ? "Max in Basket" : "Add to Basket"}
+          {isMaxedOut ? 'Max in Basket' : 'Add to Basket'}
         </button>
-        <button onClick={() => onDeleteProduct(product.id)} className="btn btn-text-danger">
+        <button
+          onClick={() => dispatch({ type: 'DELETE_PRODUCT', payload: product.id })}
+          className="btn btn-text-danger"
+        >
           Remove
         </button>
       </div>

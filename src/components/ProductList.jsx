@@ -1,7 +1,10 @@
 import React from 'react';
 import ProductCard from './ProductCard';
+import { useStore } from '../context/StoreContext';
 
-export default function ProductList({ products, cart, onAddToCart, onDeleteProduct, onUpdateProductQuantity }) {
+export default function ProductList() {
+  const { state: { products } } = useStore();
+
   return (
     <section className="product-list-section">
       <h2>Your Products</h2>
@@ -11,15 +14,8 @@ export default function ProductList({ products, cart, onAddToCart, onDeleteProdu
         </div>
       ) : (
         <div className="products-grid">
-          {products.map((product) => (
-            <ProductCard 
-              key={product.id} 
-              product={product}
-              cart={cart}
-              onAddToCart={onAddToCart} 
-              onDeleteProduct={onDeleteProduct} 
-              onUpdateProductQuantity={onUpdateProductQuantity}
-            />
+          {products.map(product => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       )}

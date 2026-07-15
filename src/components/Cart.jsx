@@ -1,8 +1,11 @@
 import React from 'react';
 import CartItem from './CartItem';
 import CartSummary from './CartSummary';
+import { useStore } from '../context/StoreContext';
 
-export default function Cart({ cart, onUpdateQuantity, onClearCart }) {
+export default function Cart() {
+  const { state: { cart } } = useStore();
+
   return (
     <section className="card cart-card">
       <h2>Customer Basket</h2>
@@ -13,15 +16,11 @@ export default function Cart({ cart, onUpdateQuantity, onClearCart }) {
       ) : (
         <div className="cart-content">
           <div className="cart-items">
-            {cart.map((item) => (
-              <CartItem 
-                key={item.id} 
-                item={item} 
-                onUpdateQuantity={onUpdateQuantity} 
-              />
+            {cart.map(item => (
+              <CartItem key={item.id} item={item} />
             ))}
           </div>
-          <CartSummary cart={cart} onClearCart={onClearCart} />
+          <CartSummary />
         </div>
       )}
     </section>

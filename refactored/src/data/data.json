@@ -1,0 +1,58 @@
+{
+  "formSchema": [
+    {
+      "name": "title",
+      "label": "Product Title",
+      "type": "text",
+      "placeholder": "e.g. Wireless Mouse",
+      "required": true
+    },
+    {
+      "name": "description",
+      "label": "Description",
+      "type": "textarea",
+      "placeholder": "Optional — what is this product?",
+      "required": false
+    },
+    {
+      "name": "price",
+      "label": "Price (USD)",
+      "type": "number",
+      "placeholder": "0.00",
+      "required": true
+    }
+  ],
+  "cardSchema": {
+    "titleKey": "title",
+    "descriptionKey": "description",
+    "badgeKey": "price",
+    "badgePrefix": "$",
+    "badgeFormat": "number"
+  },
+  "products": [
+    {
+      "id": "prod-001",
+      "title": "Wireless Mouse",
+      "description": "Ergonomic design with 2.4GHz connectivity and 18-month battery life.",
+      "price": 29.99
+    },
+    {
+      "id": "prod-002",
+      "title": "Mechanical Keyboard",
+      "description": "TKL layout with Cherry MX Brown switches and per-key RGB.",
+      "price": 89.99
+    },
+    {
+      "id": "prod-003",
+      "title": "USB-C Hub",
+      "description": "7-in-1 multiport adapter — HDMI 4K, 3× USB-A, SD, PD charging.",
+      "price": 45.00
+    },
+    {
+      "id": "prod-004",
+      "title": "Monitor Stand",
+      "description": "Adjustable aluminium riser with hidden storage drawer.",
+      "price": 34.50
+    }
+  ]
+}
