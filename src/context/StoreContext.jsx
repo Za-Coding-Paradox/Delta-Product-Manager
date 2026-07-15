@@ -2,7 +2,7 @@ import { createContext, useContext, useReducer, useEffect } from 'react';
 import seedData from '../data/data.json';
 
 // ─── Initial State ────────────────────────────────────────────────────────────
-const initialState = { products: [], cart: [] };
+const initialState = { products: [], cart: [] }; // initial state
 
 // ─── Reducer ─────────────────────────────────────────────────────────────────
 function storeReducer(state, action) {
@@ -15,7 +15,7 @@ function storeReducer(state, action) {
       const duplicate = state.products.find(
         p =>
           p.title.toLowerCase().trim() === action.payload.title.toLowerCase().trim() &&
-          p.price === action.payload.price
+          p.price === action.payload.price // duplicate matching based on price and name
       );
       if (duplicate) {
         return {
@@ -67,7 +67,8 @@ function storeReducer(state, action) {
           ),
         };
       }
-      return { ...state, cart: [...state.cart, { ...product, quantity: 1 }] };
+      return { ...state, cart: [...state.cart, { ...product, quantity: 1 }] }; 
+      // basically create an object with same state as before with changes in cart, were cart is same as before with additon of a new product
     }
 
     case 'UPDATE_CART_QUANTITY': {
@@ -97,16 +98,28 @@ function storeReducer(state, action) {
 // ─── Context & Provider ───────────────────────────────────────────────────────
 const StoreContext = createContext(null);
 
+// StoreProvider is a wrapper component. You put it around your whole app (in main.jsx)
+// so that every component inside it can access the store — the products and cart.
 export function StoreProvider({ children }) {
+
+  // useReducer gives us two things:
+  //   state    → the current data (products + cart)
+  //   dispatch → a function we call to change that data
+  // storeReducer is the rulebook that decides HOW state changes
+  // initialState is the starting value: { products: [], cart: [] }
   const [state, dispatch] = useReducer(storeReducer, initialState);
 
-  // Seed products from data.json on mount.
-  // data.json products have no quantity field, so we default to 10.
+  // useEffect with [] runs once — right after the component first appears on screen.
+  // We use it here to pre-load the 4 sample products from data.json into state.
+  // data.json products don't have a quantity field, so we add one (defaulting to 10).
   useEffect(() => {
     const seeded = seedData.products.map(p => ({ ...p, quantity: 10 }));
-    dispatch({ type: 'SEED_PRODUCTS', payload: seeded });
-  }, []);
+    dispatch({ type: 'SEED_PRODUCTS', payload: seeded }); // send the seeded list into the reducer
+  }, []); // the empty [] means "only run this once, on mount"
 
+  // StoreContext.Provider is what actually shares the data with the rest of the app.
+  // Whatever we pass to `value` becomes available to any component that calls useStore().
+  // `children` is everything nested inside <StoreProvider> in main.jsx.
   return (
     <StoreContext.Provider value={{ state, dispatch }}>
       {children}
@@ -114,7 +127,9 @@ export function StoreProvider({ children }) {
   );
 }
 
-// ─── Custom Hook ─────────────────────────────────────────────────────────────
+// useStore is a shortcut hook for any component that wants to read or update the store.
+// Instead of writing useContext(StoreContext) every time, components just call useStore().
+// It returns { state, dispatch } — the same object we passed to the Provider above.
 export function useStore() {
   return useContext(StoreContext);
 }

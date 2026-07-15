@@ -16,8 +16,8 @@ export default function App() {
           <ProductForm />
         </div>
         <div className="right-panel">
-          <Cart />
           <ProductList />
+          <Cart />
         </div>
       </main>
     </div>
