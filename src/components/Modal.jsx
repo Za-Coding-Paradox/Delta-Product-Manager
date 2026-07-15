@@ -21,11 +21,11 @@ export default function Modal({ isOpen, onClose, title, children }) {
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isOpen) return null; // if not open, return nothing empty div (nothing displays)
 
   return (
     <div
-      className="modal-overlay"
+      className="modal-overlay" // clickingn on outermost div (transparent dim screen closes the modal)
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -33,7 +33,7 @@ export default function Modal({ isOpen, onClose, title, children }) {
     >
       <div
         className="modal-dialog"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()} // stops the events from bubbling upto the overlay
       >
         <div className="modal-header">
           <h2 className="modal-title">{title}</h2>
